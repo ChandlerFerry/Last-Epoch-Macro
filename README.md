@@ -1,11 +1,11 @@
 # Last Epoch AutoHotKey Script
 
-This script is designed to automate certain actions in the game "Last Epoch" using AutoHotKey.
+This script is designed to assist with certain actions in the game "Last Epoch" using AutoHotKey.
 
 ## Features
 
-- Automated casting of plasma orb (`XButton2`)
-- Automated casting of Aegis Shield (Reowyn's Frostguard) (`Middle Mouse Button`)
+- Assisted casting of plasma orb (`XButton2`)
+- Assisted casting of Aegis Shield (Reowyn's Frostguard) (`Middle Mouse Button`)
 - Warping to predefined positions using `F1`-`F4` keys
 - Using potions during teleporting (experimental belt mod: X Seconds of Traversel CDR) (`~e`)
 - Fine-tuning the cast speed multiplier with `Left` and `Right` arrow keys

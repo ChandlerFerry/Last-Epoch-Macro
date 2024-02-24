@@ -9,15 +9,15 @@ SetMouseDelay, -1
 castSpeed := 0.86
 
 ; Passives
-runeOfDilationLevel := 3
-arcaneMomentumLevel := 4
+runeOfDilationLevel := 2
+arcaneMomentumLevel := 5
 
 ; Runic Invocation Specialization
 runeSlingerLevel := 3
-transcriberOfPowerLevel := 2
+transcriberOfPowerLevel := 1
 
 ; Runebolt Specialization
-arcanistLevel := 1
+arcanistLevel := 4
 
 ; Key documentation: https://documentation.help/AutoHotkey-en/KeyList.htm
 ; Hotkey declaration NOTE: each declaration needs to be encapsulated with quotes ex := "x"
@@ -30,8 +30,8 @@ teleport_hotkey := "w"
 potion_key := "1"
 
 ; Educated Guesses based on testing
-runeBoltAnimationSpeed := 690
-runicInvocationAnimationSpeed := 810
+runeBoltAnimationSpeed := 600
+runicInvocationAnimationSpeed := 800
 
 ; State Variables
 warpBuff := 0
@@ -53,16 +53,22 @@ NumpadMult::Reload
 
 #IfWinActive Last Epoch
 
+Numpad0::
+Loop, 10
+{
+   skey(runicinvocation_key)
+   CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
+}
+Return
+
 ; Cast plasma orb
 *XButton2::
 While (GetKeyState("XButton2", "P"))
 {
    if (!stunImmune)
    {
-      ; MouseGetPos, curX, curY
-      ; MouseMove, 1717, 707
-      ; Sleep, 10
       skey(teleport_hotkey)
+      TeleportHandling()
       CastSpeedSleep(750)
    }
    skey(runebolt_key)
@@ -71,6 +77,7 @@ While (GetKeyState("XButton2", "P"))
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
    skey(runebolt_key)
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
+   Sleep, 20
    skey(runicinvocation_key)
    CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
 }
@@ -242,7 +249,7 @@ CastSpeedSleep(baseSpeed, specificSkillCastSpeed = 0)
    global
    SetTimer, ResetArcaneMomentum, 1900
    
-   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine)) - 10)
+   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine)))
    if(arcaneMomentumStacks < arcaneMomentumLevel)
    {
       arcaneMomentumStacks += 1

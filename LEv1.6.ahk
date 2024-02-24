@@ -8,6 +8,9 @@ SetMouseDelay, -1
 ; Increased Cast Speed Stat (86% = 0.86 | 195% = 1.95)
 castSpeed := 0.86
 
+; Equipment
+wrongWarp := false
+
 ; Passives
 runeOfDilationLevel := 2
 arcaneMomentumLevel := 5
@@ -39,6 +42,7 @@ arcaneMomentumStacks := 0
 transcriberOfPower := 0
 warp_position := 0
 castSpeedShrine := 0
+wrongWarpCastSpeed := 0
 runicInvocationSpecificCastSpeed := runeSlingerLevel*0.05
 runeboltSpecificCastSpeed := runeSlingerLevel*0.04
 stunImmune := false
@@ -196,10 +200,21 @@ TeleportHandling()
    global
    stunImmune := true
    warpBuff := 0.1
+   if (wrongWarp) {
+      wrongWarpCastSpeed := 0.35
+      SetTimer, DisableWrongwarpBuff, 9900
+   }
    SetTimer, DisableStunImmune, 5000
    SetTimer, DisableWarpBuff, % runeOfDilationLevel * 950
    SetTimer, DrinkPotion, 100
    Return
+}
+
+DisableWrongwarpBuff()
+{
+   global
+   SetTimer, DisableWrongwarpBuff, Off
+   wrongWarpCastSpeed := 0
 }
 
 DisableWarpBuff()
@@ -249,7 +264,7 @@ CastSpeedSleep(baseSpeed, specificSkillCastSpeed = 0)
    global
    SetTimer, ResetArcaneMomentum, 1900
    
-   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine)))
+   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine + wrongWarpCastSpeed)))
    if(arcaneMomentumStacks < arcaneMomentumLevel)
    {
       arcaneMomentumStacks += 1

@@ -58,14 +58,6 @@ NumpadMult::Reload
 
 #IfWinActive Last Epoch
 
-Numpad0::
-Loop, 10
-{
-   skey(runicinvocation_key)
-   CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
-}
-Return
-
 ; Cast plasma orb
 *XButton2::
 While (GetKeyState("XButton2", "P"))
@@ -114,38 +106,6 @@ Return
 Up::
    castSpeedShrine := 0.3
    SetTimer, DisableCastSpeedShrine, 55000
-Return
-
-; Cooldown Shrine?
-
-; Trades
-*F5::
-{
-   BlockInput, MouseMove
-   temp := Clipboard
-   Clipboard := 49494
-   MouseGetPos, curX, curY
-   Send, {LShift Down}
-   Sleep, 10
-   Click, right
-   Sleep, 100
-   Send, {LShift Up}
-   Sleep, 10
-   Click, 1566, 730
-   Sleep, 50
-   Send, ^a
-   Sleep, 50
-   Send, ^v
-   Sleep, 50
-   Click, 1533, 807
-   Sleep, 200
-   Click, 1533, 807
-   Sleep, 300
-   Click, 2617, 752
-   Sleep, 20
-   MouseMove, %curX%, %curY%
-   BlockInput, MouseMoveOff
-}
 Return
 
 ; decrement the position of warping

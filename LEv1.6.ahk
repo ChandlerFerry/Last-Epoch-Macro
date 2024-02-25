@@ -5,8 +5,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetKeyDelay, -1
 SetMouseDelay, -1
 
+; SetTimer, SetUseAegis, 14300 ; Flame Ward Cooldown
 ; Increased Cast Speed Stat (86% = 0.86 | 195% = 1.95)
-castSpeed := 0.86
+castSpeed := 0.87
 
 ; Equipment
 wrongWarp := false
@@ -25,6 +26,9 @@ transcriberOfPowerLevel := 1
 ; Runebolt Specialization
 arcanistLevel := 4
 
+; Frost Wall Specialization
+boostedKickoffLevel := 1
+
 ; Key documentation: https://documentation.help/AutoHotkey-en/KeyList.htm
 ; Hotkey declaration NOTE: each declaration needs to be encapsulated with quotes ex := "x"
 ; CHANGE THE BELOW KEYS TO THE KEYS YOU WANT TO USE
@@ -34,6 +38,9 @@ icerune_key := "e" ; Frost Wall
 firerune_key := "g" ; Flame Ward
 teleport_hotkey := "w"
 potion_key := "1"
+
+centerScreenX := 1715
+centerScreenY := 663
 
 ; State Variables
 runeBoltAnimationSpeed := 600
@@ -45,9 +52,11 @@ transcriberOfPower := 0
 warp_position := 0
 castSpeedShrine := 0
 wrongWarpCastSpeed := 0
+frenzyCastSpeed := 0
 runicInvocationSpecificCastSpeed := runeSlingerLevel*0.05
 runeboltSpecificCastSpeed := runeSlingerLevel*0.04
 stunImmune := false
+useAegis := false
 castSpeed -= 0.01 ; Rounding Sanity
 
 ; Hotkeys
@@ -81,14 +90,7 @@ Return
 ; Cast aegis shield (Reowyn's Frostguard)
 *MButton::
 {
-   skey(icerune_key)
-   CastSpeedSleep(iceRuneAnimationSpeed)
-   skey(firerune_key)
-   skey(icerune_key)
-   CastSpeedSleep(iceRuneAnimationSpeed)
-   Sleep, 20
-   skey(runicinvocation_key)
-   CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
+   Aegis()
 }
 Return
 
@@ -149,6 +151,29 @@ skey(key)
    }
 }
 
+Aegis()
+{
+   global
+   useAegis := false
+   BlockInput, MouseMove
+   MouseGetPos, curX, curY
+   skey(icerune_key)
+   CastSpeedSleep(iceRuneAnimationSpeed)
+   skey(firerune_key)
+   MouseMove, %centerScreenX%, %centerScreenY%
+   skey(icerune_key)
+   CastSpeedSleep(iceRuneAnimationSpeed)
+   if (boostedKickoffLevel >= 1) {
+      frenzyCastSpeed := 0.2
+      SetTimer, DisableBoostedKickoffBuff, 1000
+   }
+   Sleep, 20
+   MouseMove, %curX%, %curY%
+   BlockInput, MouseMoveOff
+   skey(runicinvocation_key)
+   CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
+}
+
 ; Use potion when teleporting (experimental belt mod: X Seconds of Traversel CDR)
 TeleportHandling()
 {
@@ -163,6 +188,13 @@ TeleportHandling()
    SetTimer, DisableWarpBuff, % runeOfDilationLevel * 950
    SetTimer, DrinkPotion, 100
    Return
+}
+
+DisableBoostedKickoffBuff()
+{
+   global
+   SetTimer, DisableBoostedKickoffBuff, Off
+   frenzyCastSpeed := 0
 }
 
 DisableWrongwarpBuff()
@@ -214,6 +246,12 @@ ResetTranscriberOfPower()
    transcriberOfPower := 0
 }
 
+SetUseAegis()
+{
+   global
+   useAegis := true
+}
+
 BecomeStunImmune()
 {
    global
@@ -231,7 +269,7 @@ CastSpeedSleep(baseSpeed, specificSkillCastSpeed = 0)
    global
    SetTimer, ResetArcaneMomentum, 1900
    
-   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine + wrongWarpCastSpeed)))
+   Sleep, Ceil((baseSpeed / (1 + castSpeed + warpBuff + (arcaneMomentumStacks*0.05) + transcriberOfPower + specificSkillCastSpeed + castSpeedShrine + wrongWarpCastSpeed + frenzyCastSpeed)))
    if(arcaneMomentumStacks < arcaneMomentumLevel)
    {
       arcaneMomentumStacks += 1

@@ -202,7 +202,7 @@ TeleportHandling()
       wrongWarpCastSpeed := 0.35
       SetTimer, DisableWrongwarpBuff, 9900
    }
-   SetTimer, DisableStunImmune, % stunIdolsSeconds * 0.93
+   SetTimer, DisableStunImmune, % stunIdolsSeconds * 1000 * 0.93
    SetTimer, DisableWarpBuff, % runeOfDilationLevel * 950
    SetTimer, DrinkPotion, 100
    Return
@@ -262,6 +262,7 @@ BecomeStunImmune()
    global
    if (!stunImmune)
    {
+      stunImmune := true
       skey(teleport_hotkey)
       TeleportHandling()
       CastSpeedSleep(750)

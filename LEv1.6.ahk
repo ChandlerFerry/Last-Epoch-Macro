@@ -12,8 +12,10 @@ castSpeed := 0.86
 wrongWarp := false
 stunIdolsSeconds := 6
 
-; Passives
+; Runemaster Passives
 runeOfDilationLevel := 2
+
+; Sorc Passives
 arcaneMomentumLevel := 5
 
 ; Runic Invocation Specialization

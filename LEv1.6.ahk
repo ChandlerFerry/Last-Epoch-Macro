@@ -6,7 +6,6 @@ SetKeyDelay, -1
 SetMouseDelay, -1
 
 ; Increased Cast Speed Stat (86% = 0.86 | 195% = 1.95)
-; castSpeed := 0.33
 castSpeed := 0.86
 
 ; Equipment

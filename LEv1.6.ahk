@@ -155,21 +155,21 @@ Aegis()
 {
    global
    useAegis := false
-   BlockInput, MouseMove
-   MouseGetPos, curX, curY
+   ; BlockInput, MouseMove
+   ; MouseGetPos, curX, curY
    skey(icerune_key)
    CastSpeedSleep(iceRuneAnimationSpeed)
    skey(firerune_key)
-   MouseMove, %centerScreenX%, %centerScreenY%
+   ; MouseMove, %centerScreenX%, %centerScreenY%
    skey(icerune_key)
    CastSpeedSleep(iceRuneAnimationSpeed)
-   if (boostedKickoffLevel >= 1) {
-      frenzyCastSpeed := 0.2
-      SetTimer, DisableBoostedKickoffBuff, 1000
-   }
+   ; if (boostedKickoffLevel >= 1) {
+   ;    frenzyCastSpeed := 0.2
+   ;    SetTimer, DisableBoostedKickoffBuff, 1000
+   ; }
    Sleep, 20
-   MouseMove, %curX%, %curY%
-   BlockInput, MouseMoveOff
+   ; MouseMove, %curX%, %curY%
+   ; BlockInput, MouseMoveOff
    skey(runicinvocation_key)
    CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
 }
@@ -288,7 +288,7 @@ warp(x, y)
    Click, %x%, %y%   ; Second click to (hopefully) ensure the click goes through
 
    ; Return the mouse to its original position
-   MouseMove, %OriginalMouseX%, %OriginalMouseY%, 0
+   MouseMove, %OriginalMouseX%, %OriginalMouseY%
    BlockInput, MouseMoveOff
 }
 

@@ -6,6 +6,7 @@ SetKeyDelay, -1
 SetMouseDelay, -1
 
 ; Increased Cast Speed Stat (86% = 0.86 | 195% = 1.95)
+; castSpeed := 0.33
 castSpeed := 0.86
 
 ; Equipment
@@ -38,6 +39,7 @@ potion_key := "1"
 ; State Variables
 runeBoltAnimationSpeed := 600
 runicInvocationAnimationSpeed := 800
+iceRuneAnimationSpeed := 500
 warpBuff := 0
 arcaneMomentumStacks := 0
 transcriberOfPower := 0
@@ -81,17 +83,13 @@ Return
 *MButton::
 {
    skey(icerune_key)
-   ;Send {%icerune_key%}
-   sleep (250 * 1/castSpeed)
+   CastSpeedSleep(iceRuneAnimationSpeed)
    skey(firerune_key)
-   ;Send {%firerune_key%}
-   sleep (200 * 1/castSpeed)
    skey(icerune_key)
-   ;Send {%icerune_key%}
-   sleep (250 * 1/castSpeed)
+   CastSpeedSleep(iceRuneAnimationSpeed)
+   Sleep, 20
    skey(runicinvocation_key)
-   ;Send {%runicinvocation_key%}
-   sleep (275 * 1/castSpeed)
+   CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
 }
 Return
 

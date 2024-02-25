@@ -8,7 +8,6 @@ This script is designed to assist with certain actions in the game "Last Epoch" 
 - Assisted casting of Aegis Shield (Reowyn's Frostguard) (`Middle Mouse Button`)
 - Warping to predefined positions using `F1`-`F4` keys
 - Using potions during teleporting (experimental belt mod: X Seconds of Traversel CDR) (`~e`)
-- Fine-tuning the cast speed multiplier with `Left` and `Right` arrow keys
 - Incrementing and decrementing the position of warping using `Up` and `Down` arrow keys
 
 ## Setup

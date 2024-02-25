@@ -69,19 +69,17 @@ Return
 *XButton2::
 While (GetKeyState("XButton2", "P"))
 {
-   if (!stunImmune)
-   {
-      skey(teleport_hotkey)
-      TeleportHandling()
-      CastSpeedSleep(750)
-   }
+   BecomeStunImmune()
    skey(runebolt_key)
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
+   BecomeStunImmune()
    skey(runebolt_key)
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
+   BecomeStunImmune()
    skey(runebolt_key)
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
    Sleep, 20
+   BecomeStunImmune()
    skey(runicinvocation_key)
    CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
 }
@@ -92,16 +90,16 @@ Return
 {
    skey(icerune_key)
    ;Send {%icerune_key%}
-   sleep (350 * 1/castSpeed)
+   sleep (250 * 1/castSpeed)
    skey(firerune_key)
    ;Send {%firerune_key%}
-   sleep (300 * 1/castSpeed)
+   sleep (200 * 1/castSpeed)
    skey(icerune_key)
    ;Send {%icerune_key%}
-   sleep (350 * 1/castSpeed)
+   sleep (250 * 1/castSpeed)
    skey(runicinvocation_key)
    ;Send {%runicinvocation_key%}
-   sleep (300 * 1/castSpeed)
+   sleep (275 * 1/castSpeed)
 }
 Return
 
@@ -257,6 +255,17 @@ ResetTranscriberOfPower()
    global
    SetTimer, ResetTranscriberOfPower, Off
    transcriberOfPower := 0
+}
+
+BecomeStunImmune()
+{
+   global
+   if (!stunImmune)
+   {
+      skey(teleport_hotkey)
+      TeleportHandling()
+      CastSpeedSleep(750)
+   }
 }
 
 CastSpeedSleep(baseSpeed, specificSkillCastSpeed = 0)

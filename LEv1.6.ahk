@@ -79,7 +79,6 @@ While (GetKeyState("XButton2", "P"))
    skey(runebolt_key)
    CastSpeedSleep(runeBoltAnimationSpeed, runeboltSpecificCastSpeed)
    Sleep, 20
-   BecomeStunImmune()
    skey(runicinvocation_key)
    CastSpeedSleep(runicInvocationAnimationSpeed, runicInvocationSpecificCastSpeed)
 }
@@ -202,7 +201,7 @@ TeleportHandling()
       wrongWarpCastSpeed := 0.35
       SetTimer, DisableWrongwarpBuff, 9900
    }
-   SetTimer, DisableStunImmune, 5000
+   SetTimer, DisableStunImmune, 5500
    SetTimer, DisableWarpBuff, % runeOfDilationLevel * 950
    SetTimer, DrinkPotion, 100
    Return

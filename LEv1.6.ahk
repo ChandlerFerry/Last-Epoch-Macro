@@ -35,11 +35,9 @@ firerune_key := "g" ; Flame Ward
 teleport_hotkey := "w"
 potion_key := "1"
 
-; Educated Guesses based on testing
+; State Variables
 runeBoltAnimationSpeed := 600
 runicInvocationAnimationSpeed := 800
-
-; State Variables
 warpBuff := 0
 arcaneMomentumStacks := 0
 transcriberOfPower := 0

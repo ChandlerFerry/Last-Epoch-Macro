@@ -10,7 +10,7 @@ castSpeed := 0.86
 
 ; Equipment
 wrongWarp := false
-stunIdols := 2
+stunIdolsSeconds := 6
 
 ; Passives
 runeOfDilationLevel := 2
@@ -202,7 +202,7 @@ TeleportHandling()
       wrongWarpCastSpeed := 0.35
       SetTimer, DisableWrongwarpBuff, 9900
    }
-   SetTimer, DisableStunImmune, % stunIdols * 2750
+   SetTimer, DisableStunImmune, % stunIdolsSeconds * 0.93
    SetTimer, DisableWarpBuff, % runeOfDilationLevel * 950
    SetTimer, DrinkPotion, 100
    Return

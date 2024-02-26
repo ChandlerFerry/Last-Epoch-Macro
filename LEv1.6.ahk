@@ -46,6 +46,7 @@ centerScreenY := 663
 runeBoltAnimationSpeed := 600
 runicInvocationAnimationSpeed := 800
 iceRuneAnimationSpeed := 500
+teleportAnimationSpeed := 350
 warpBuff := 0
 arcaneMomentumStacks := 0
 transcriberOfPower := 0
@@ -67,6 +68,12 @@ Hotkey, IfWinActive
 NumpadMult::Reload
 
 #IfWinActive Last Epoch
+Numpad0::
+   skey(teleport_hotkey)
+   TeleportHandling()
+   CastSpeedSleep(teleportAnimationSpeed)
+   skey(runebolt_key)
+Return
 
 ; Cast plasma orb
 *XButton2::
@@ -260,7 +267,7 @@ BecomeStunImmune()
       stunImmune := true
       skey(teleport_hotkey)
       TeleportHandling()
-      CastSpeedSleep(750)
+      CastSpeedSleep(teleportAnimationSpeed)
    }
 }
 
